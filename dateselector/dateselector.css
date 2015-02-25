@@ -1,0 +1,15 @@
+.dateselector {
+    display: none;
+}
+.dateselector-container select:not(:last-child) {
+    margin-right: 3px;
+}
+.dateselector-container select {
+    height: 36px;
+    padding: 6px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-shadow: none;
+    box-sizing: border-box;
+}
