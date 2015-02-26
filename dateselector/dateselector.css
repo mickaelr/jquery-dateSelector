@@ -1,3 +1,4 @@
+input.dateselector, /* fix not-hidden input when bootstrap.css */
 .dateselector {
     display: none;
 }

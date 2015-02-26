@@ -3,7 +3,13 @@
 $(document).ready(function() {
     console.log('ready!'); 
     console.log($('.dateselector'));
-    $('.dateselector').dateSelector({showTime: true});
+    $('.dateselector').dateSelector({
+    	cssFramework: 'bootstrap', 
+    	onDateChange: function() { 
+    		console.log('date changed'); 
+    		console.log($('.dateselector').dateSelector('getDate')); 
+    	}
+    });
 });
 
 
