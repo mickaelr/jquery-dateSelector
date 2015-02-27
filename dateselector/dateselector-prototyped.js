@@ -23,6 +23,9 @@
         // Store a jQuery reference  to the source element
         this.$el = $(element);
 
+        // Set a random (and normally unique) id for the object
+        this.instanceId = Math.round(new Date().getTime() + (Math.random() * 100));
+
         // Set the instance options extending the plugin defaults and
         // the options passed by the user
         this.settings = $.extend({}, $.fn[pluginName].defaults, options);
@@ -87,16 +90,6 @@
                 "Décembre"
             ];
             
-            // Declare current date / time values
-            /*var now = new Date();
-            var 
-                currentYear     = now.getFullYear(), 
-                currentMonth    = now.getMonth(), 
-                currentDay      = now.getDate(), 
-                currentHours    = now.getHours(), 
-                currentMinutes  = now.getMinutes(), 
-                currentSeconds  = now.getSeconds();*/
-            
             // Set main container
             if(this.settings.container !== undefined) {
                 var container = $(this.settings.container);
@@ -119,6 +112,14 @@
                     this.selectElements.minutesSelect   = $('<ul class="dropdown-menu">'), 
                     this.selectElements.secondsSelect   = $('<ul class="dropdown-menu">');
                     break;
+                case 'foundation':
+                    this.selectElements.yearSelect      = $('<ul id="dateselector-year-' + this.instanceId + '" class="f-dropdown">'), 
+                    this.selectElements.monthSelect     = $('<ul id="dateselector-month-' + this.instanceId + '" class="f-dropdown">'), 
+                    this.selectElements.daySelect       = $('<ul id="dateselector-day-' + this.instanceId + '" class="f-dropdown">'),
+                    this.selectElements.hoursSelect     = $('<ul id="dateselector-hours-' + this.instanceId + '" class="f-dropdown">'), 
+                    this.selectElements.minutesSelect   = $('<ul id="dateselector-minutes-' + this.instanceId + '" class="f-dropdown">'), 
+                    this.selectElements.secondsSelect   = $('<ul id="dateselector-seconds-' + this.instanceId + '" class="f-dropdown">');
+                    break;
                 default: 
                     this.selectElements.yearSelect      = $('<select class="dateselector-year">'), 
                     this.selectElements.monthSelect     = $('<select class="dateselector-month">'), 
@@ -131,30 +132,30 @@
             
             // Fill dateSelector's selects with appropriate options
             switch(this.settings.cssFramework) {
-                case 'bootstrap':
+                case 'bootstrap': case 'foundation':
                     // "value" attribute is important if we let the _getDateSelectorValue method use $('li.selected').val()
                     for(var y = this.settings.maxYear; y >= this.settings.minYear; y--) {
-                        var yearOption = $('<li value="' + y + '"><a href="">' + y + '</a></li>');
+                        var yearOption = $('<li value="' + y + '"><a href="#">' + y + '</a></li>');
                         this.selectElements.yearSelect.append(yearOption);
                     }
                     for(var M = this.settings.minMonth; M <= this.settings.maxMonth; M++) {
-                        var monthOption = $('<li value="' + M + '"><a href="">' + monthNames[M] + '</a></li>');
+                        var monthOption = $('<li value="' + M + '"><a href="#">' + monthNames[M] + '</a></li>');
                         this.selectElements.monthSelect.append(monthOption);
                     }
                     for(var d = this.settings.minDay; d <= this.settings.maxDay; d++) {
-                        var dayOption = $('<li value="' + d + '"><a href="">' + d + '</a></li>');
+                        var dayOption = $('<li value="' + d + '"><a href="#">' + d + '</a></li>');
                         this.selectElements.daySelect.append(dayOption);
                     }
                     for(var h = this.settings.minHours; h <= this.settings.maxHours; h++) {
-                        var hoursOption = $('<li value="' + h + '"><a href="">' + h + '</a></li>');
+                        var hoursOption = $('<li value="' + h + '"><a href="#">' + h + '</a></li>');
                         this.selectElements.hoursSelect.append(hoursOption);
                     }
                     for(var m = this.settings.minMinutes; m <= this.settings.maxMinutes; m++) {
-                        var minutesOption = $('<li value="' + m + '"><a href="">' + m + '</a></li>');
+                        var minutesOption = $('<li value="' + m + '"><a href="#">' + m + '</a></li>');
                         this.selectElements.minutesSelect.append(minutesOption);
                     }
                     for(var s = this.settings.minSeconds; s <= this.settings.maxSeconds; s++) {
-                        var secondsOption = $('<li value="' + s + '"><a href="">' + s + '</a></li>');
+                        var secondsOption = $('<li value="' + s + '"><a href="#">' + s + '</a></li>');
                         this.selectElements.secondsSelect.append(secondsOption);
                     }
                     break;
@@ -191,7 +192,7 @@
                 case 'bootstrap':
                     var dropdownTemplate = $(
                         '<div class="dropdown">' +
-                            '<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">' +
+                            '<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
                                 'Dropdown' +
                                 '<span class="caret"></span>' +
                             '</button>' +
@@ -203,6 +204,28 @@
                     this.selectElements.hoursSelect     = dropdownTemplate.clone().addClass('dateselector-hours').append(this.selectElements.hoursSelect); 
                     this.selectElements.minutesSelect   = dropdownTemplate.clone().addClass('dateselector-minutes').append(this.selectElements.minutesSelect); 
                     this.selectElements.secondsSelect   = dropdownTemplate.clone().addClass('dateselector-seconds').append(this.selectElements.secondsSelect);
+                    dropdownTemplate.remove();
+                    break;
+                case 'foundation':
+                    var dropdownTemplate = $(
+                        '<div>' +
+                            '<button class="button dropdown">' +
+                                'Dropdown' +
+                            '</button>' +
+                        '</div>'
+                    );
+                    this.selectElements.yearSelect      = dropdownTemplate.clone().addClass('dateselector-year').append(this.selectElements.yearSelect);
+                    this.selectElements.yearSelect.find('.button.dropdown').attr('data-dropdown', 'dateselector-year-' + this.instanceId);
+                    this.selectElements.monthSelect     = dropdownTemplate.clone().addClass('dateselector-month').append(this.selectElements.monthSelect); 
+                    this.selectElements.monthSelect.find('.button.dropdown').attr('data-dropdown', 'dateselector-month-' + this.instanceId);
+                    this.selectElements.daySelect       = dropdownTemplate.clone().addClass('dateselector-day').append(this.selectElements.daySelect);
+                    this.selectElements.daySelect.find('.button.dropdown').attr('data-dropdown', 'dateselector-day-' + this.instanceId);
+                    this.selectElements.hoursSelect     = dropdownTemplate.clone().addClass('dateselector-hours').append(this.selectElements.hoursSelect); 
+                    this.selectElements.hoursSelect.find('.button.dropdown').attr('data-dropdown', 'dateselector-hours-' + this.instanceId);
+                    this.selectElements.minutesSelect   = dropdownTemplate.clone().addClass('dateselector-minutes').append(this.selectElements.minutesSelect); 
+                    this.selectElements.minutesSelect.find('.button.dropdown').attr('data-dropdown', 'dateselector-minutes-' + this.instanceId);
+                    this.selectElements.secondsSelect   = dropdownTemplate.clone().addClass('dateselector-seconds').append(this.selectElements.secondsSelect);
+                    this.selectElements.secondsSelect.find('.button.dropdown').attr('data-dropdown', 'dateselector-seconds-' + this.instanceId);
                     dropdownTemplate.remove();
                     break;
                 default: 
@@ -217,7 +240,7 @@
 
             // Handle dateSelector changes
             switch(this.settings.cssFramework) {
-                case 'bootstrap':
+                case 'bootstrap': case 'foundation':
                     var that = this;
                     this.selectElements.yearSelect.find('li a').on('click', function(event) {
                         event.preventDefault();
@@ -226,6 +249,7 @@
                             $this.parent().addClass('selected').siblings().removeClass('selected');
                             that._updateDateSelector();
                         }
+                        if(that.settings.cssFramework === 'foundation') Foundation.libs.dropdown.close(that.selectElements.yearSelect.find('.f-dropdown'));
                     });
                     this.selectElements.monthSelect.find('li a').on('click', function(event) {
                         event.preventDefault();
@@ -234,6 +258,7 @@
                             $this.parent().addClass('selected').siblings().removeClass('selected');
                             that._updateDateSelector();
                         }
+                        if(that.settings.cssFramework === 'foundation') Foundation.libs.dropdown.close(that.selectElements.monthSelect.find('.f-dropdown'));
                     });
                     this.selectElements.daySelect.find('li a').on('click', function(event) {
                         event.preventDefault();
@@ -242,6 +267,7 @@
                             $this.parent().addClass('selected').siblings().removeClass('selected');
                             that._updateDateSelector();
                         }
+                        if(that.settings.cssFramework === 'foundation') Foundation.libs.dropdown.close(that.selectElements.daySelect.find('.f-dropdown'));
                     });
                     this.selectElements.hoursSelect.find('li a').on('click', function(event) {
                         event.preventDefault();
@@ -250,6 +276,7 @@
                             $this.parent().addClass('selected').siblings().removeClass('selected');
                             that._updateDateSelector();
                         }
+                        if(that.settings.cssFramework === 'foundation') Foundation.libs.dropdown.close(that.selectElements.hoursSelect.find('.f-dropdown'));
                     });
                     this.selectElements.minutesSelect.find('li a').on('click', function(event) {
                         event.preventDefault();
@@ -258,6 +285,7 @@
                             $this.parent().addClass('selected').siblings().removeClass('selected');
                             that._updateDateSelector();
                         }
+                        if(that.settings.cssFramework === 'foundation') Foundation.libs.dropdown.close(that.selectElements.minutesSelect.find('.f-dropdown'));
                     });
                     this.selectElements.secondsSelect.find('li a').on('click', function(event) {
                         event.preventDefault();
@@ -266,26 +294,28 @@
                             $this.parent().addClass('selected').siblings().removeClass('selected');
                             that._updateDateSelector();
                         }
+                        if(that.settings.cssFramework === 'foundation') Foundation.libs.dropdown.close(that.selectElements.secondsSelect.find('.f-dropdown'));
                     });
                     break;
                 default:
+                    var that = this;
                     this.selectElements.yearSelect.on('change', function() {
-                        this._updateDateSelector();
+                        that._updateDateSelector();
                     });
                     this.selectElements.monthSelect.on('change', function() {
-                        this._updateDateSelector();
+                        that._updateDateSelector();
                     });
                     this.selectElements.daySelect.on('change', function() {
-                        this._updateDateSelector();
+                        that._updateDateSelector();
                     });
                     this.selectElements.hoursSelect.on('change', function() {
-                        this._updateDateSelector();
+                        that._updateDateSelector();
                     });
                     this.selectElements.minutesSelect.on('change', function() {
-                        this._updateDateSelector();
+                        that._updateDateSelector();
                     });
                     this.selectElements.secondsSelect.on('change', function() {
-                        this._updateDateSelector();
+                        that._updateDateSelector();
                     });
                     break;
             }
@@ -296,6 +326,8 @@
             if(this.settings.showTime)
                 this.container.append(this.selectElements.hoursSelect).append(this.selectElements.minutesSelect).append(this.selectElements.secondsSelect);
             this.$el.parent().append(this.container);
+            if(this.settings.cssFramework === 'foundation')
+                $(document).foundation('dropdown', 'reflow');
         },
 
         /**
@@ -373,7 +405,7 @@
             
             var lastMonthDay = getLastMonthDay(this.currentValue.getFullYear(), this.currentValue.getMonth());
             switch(this.settings.cssFramework) {
-                case 'bootstrap':
+                case 'bootstrap': case 'foundation':
                     for(var i = 1; i <= lastMonthDay; i++) {
                         this.selectElements.daySelect.find('li[value="' + i + '"]').removeClass('disabled');
                     }
@@ -395,7 +427,7 @@
         _getDateSelectorValue: function() {
             var selector;
             switch(this.settings.cssFramework) {
-                case 'bootstrap':
+                case 'bootstrap': case 'foundation':
                     selector = '.selected';
                     break;
                 default:
@@ -427,7 +459,7 @@
         // Method that set the value of the dateSelector, giving a specific date
         _setDateSelectorValue: function(date) {
             switch(this.settings.cssFramework) {
-                case 'bootstrap':
+                case 'bootstrap': case 'foundation':
                     this.selectElements.yearSelect.find('li[value="' + date.getFullYear() + '"]').addClass('selected').siblings().removeClass('selected');
                     this.selectElements.monthSelect.find('li[value="' + date.getMonth() + '"]').addClass('selected').siblings().removeClass('selected');
                     this.selectElements.daySelect.find('li[value="' + date.getDate() + '"]').addClass('selected').siblings().removeClass('selected');
@@ -435,12 +467,14 @@
                     this.selectElements.minutesSelect.find('li[value="' + date.getMinutes() + '"]').addClass('selected').siblings().removeClass('selected');
                     this.selectElements.secondsSelect.find('li[value="' + date.getSeconds() + '"]').addClass('selected').siblings().removeClass('selected');
 
-                    this.selectElements.yearSelect.find('.dropdown-toggle').text(this.selectElements.yearSelect.find('li.selected a').text());
-                    this.selectElements.monthSelect.find('.dropdown-toggle').text(this.selectElements.monthSelect.find('li.selected a').text());
-                    this.selectElements.daySelect.find('.dropdown-toggle').text(this.selectElements.daySelect.find('li.selected a').text());
-                    this.selectElements.hoursSelect.find('.dropdown-toggle').text(this.selectElements.hoursSelect.find('li.selected a').text());
-                    this.selectElements.minutesSelect.find('.dropdown-toggle').text(this.selectElements.minutesSelect.find('li.selected a').text());
-                    this.selectElements.secondsSelect.find('.dropdown-toggle').text(this.selectElements.secondsSelect.find('li.selected a').text());
+                    var toggleButton = (this.settings.cssFramework === 'bootstrap') ? '.dropdown-toggle' : '.dropdown.button';
+                    var caretString = (this.settings.cssFramework === 'bootstrap') ? '<span class="caret"></span>' : '';
+                    this.selectElements.yearSelect.find(toggleButton).text(this.selectElements.yearSelect.find('li.selected a').text()).append($(caretString));
+                    this.selectElements.monthSelect.find(toggleButton).text(this.selectElements.monthSelect.find('li.selected a').text()).append($(caretString));
+                    this.selectElements.daySelect.find(toggleButton).text(this.selectElements.daySelect.find('li.selected a').text()).append($(caretString));
+                    this.selectElements.hoursSelect.find(toggleButton).text(this.selectElements.hoursSelect.find('li.selected a').text()).append($(caretString));
+                    this.selectElements.minutesSelect.find(toggleButton).text(this.selectElements.minutesSelect.find('li.selected a').text()).append($(caretString));
+                    this.selectElements.secondsSelect.find(toggleButton).text(this.selectElements.secondsSelect.find('li.selected a').text()).append($(caretString));
                     break;
                 default:
                     this.selectElements.yearSelect.find('option[value="' + date.getFullYear() + '"]').prop('selected', true);

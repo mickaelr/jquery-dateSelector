@@ -1,9 +1,9 @@
+/* ------------------- *\
+   FOR CLASSIC VERSION
+\* ------------------- */
 input.dateselector, /* fix not-hidden input when bootstrap.css */
 .dateselector {
     display: none;
-}
-.dateselector-container select:not(:last-child) {
-    margin-right: 3px;
 }
 .dateselector-container select {
     height: 36px;
@@ -14,3 +14,28 @@ input.dateselector, /* fix not-hidden input when bootstrap.css */
     box-shadow: none;
     box-sizing: border-box;
 }
+/* Following width values to override if you want to change font size, select width... */
+.dateselector-container select:not(:last-child) { margin-right: 3px; }
+.dateselector-container .dateselector-year,
+.dateselector-container .dateselector-day,
+.dateselector-container .dateselector-hours,
+.dateselector-container .dateselector-minutes,
+.dateselector-container .dateselector-seconds { width: 70px; }
+.dateselector-container .dateselector-month { width: 110px; }
+
+/* --------------------- *\
+   FOR BOOTSTRAP VERSION
+\* --------------------- */
+.dateselector-container .dropdown { display: inline-block; }
+.dateselector-container .dropdown:not(:last-child) { margin-right: 3px; }
+.dateselector-container .dropdown .caret { margin-left: 5px; }
+
+/* ---------------------- *\
+   FOR FOUNDATION VERSION
+\* ---------------------- */
+.dateselector-container .dateselector-year,
+.dateselector-container .dateselector-month,
+.dateselector-container .dateselector-day,
+.dateselector-container .dateselector-hours,
+.dateselector-container .dateselector-minutes,
+.dateselector-container .dateselector-seconds { display: inline-block; }
