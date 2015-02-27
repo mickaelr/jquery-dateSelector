@@ -7,7 +7,23 @@ The aim of this plugin is to easily build that kind of form fields for date inpu
 
 ## Code Example
 
-(write in progress)
+**HTML**
+```html
+    <head>
+        <link href="path/to/plugin/dateselector.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="element"></div>
+        <script src="path/to/plugin/dateselector.js"></script>
+    </body>
+```
+
+**JAVASCRIPT**
+```javascript
+    $(document).ready(function() {
+        $('#element').dateSelector();
+    });
+```
 
 ## Installation
 
