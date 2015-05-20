@@ -44,5 +44,6 @@ The plugin is under MIT License
 
 ## TODO
 
+Unit testing
 Build a "light version" of the plugin
 ...
