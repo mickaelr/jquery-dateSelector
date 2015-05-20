@@ -15,12 +15,14 @@
         <h1>DateSelector</h1>
 
         <h2>Quickstart</h2>
-        For the moment, the plugin has dependencies with jQuery and Moment. You can include it like following.
+        For now, the plugin has dependencies with jQuery and Moment. You can include it like following.
+        The css file isn't required if you don't want to use the plugin style. 
+        Bootstrap & Foundation aren't required at all, they're in the repo only for demo purpose.
         <pre><code class="language-markup">
 &lt;link rel="stylesheet" type="text/css" href="dateselector/dateselector.css">
 &lt;script type="text/javascript" src="jquery/jquery.min.js">&lt;/script>
 &lt;script type="text/javascript" src="moment/moment-with-locales.min.js">&lt;/script>
-&lt;script type="text/javascript" src="dateselector/dateselector.js">&lt;/script>
+&lt;script type="text/javascript" src="dateselector/jquery.dateselector.js">&lt;/script>
 </code></pre>
 
         <h2>Options</h2>
@@ -40,6 +42,12 @@
                     <td>string</td>
                     <td>undefined</td>
                     <td>The javascript query selector of a DOM element (for ex.: '#myContainer')</td>
+                </tr>
+                <tr>
+                    <td>containerClass</td>
+                    <td>string</td>
+                    <td>undefined</td>
+                    <td>If you want to add a custom class to the selector's container</td>
                 </tr>
                 <tr>
                     <td>cssFramework</td>
@@ -82,6 +90,12 @@
                     <td>function</td>
                     <td>empty function</td>
                     <td>The function to call on date change</td>
+                </tr>
+                <tr>
+                    <td>selectsClass</td>
+                    <td>string</td>
+                    <td>undefined</td>
+                    <td>If you want to add a custom class to the selector's selects/dropdowns</td>
                 </tr>
                 <tr>
                     <td>showDate</td>
@@ -294,7 +308,7 @@ $('.dateselector7').dateSelector().dateSelector('setDate', new Date(2000, 2, 12)
         <script type="text/javascript" src="foundation/js/foundation.min.js"></script>
         <script type="text/javascript" src="moment/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="prism/prism.js"></script>
-        <script type="text/javascript" src="dateselector/jquery.dateselector.min.js"></script>
+        <script type="text/javascript" src="dateselector/jquery.dateselector.js"></script>
         <script type="text/javascript" src="app.js"></script>
     </body>
 </html>

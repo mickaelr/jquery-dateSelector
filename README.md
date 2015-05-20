@@ -7,7 +7,8 @@ The aim of this plugin is to easily build that kind of form fields for date inpu
 
 ## Installation
 
-It's a jquery-based plugin, so the only thing you have to import in your project are a jQuery version and dateselector.js (and dateselector.css if you want to use the plugin style).
+For now, the plugin has dependencies with jQuery and Moment. You can include it like following.
+The css file isn't required if you don't want to use the plugin style. 
 Bootstrap & Foundation aren't required at all, they're in the repo only for demo purpose.
 
 ## Usage
@@ -19,6 +20,8 @@ Bootstrap & Foundation aren't required at all, they're in the repo only for demo
     </head>
     <body>
         <div id="element"></div>
+        <script src="path/to/jquery/jquery.js"></script>
+        <script src="path/to/moment/moment.js"></script>
         <script src="path/to/plugin/jquery.dateselector.js"></script>
     </body>
 ```
@@ -37,3 +40,9 @@ See [demo project page](http://mickaelr.github.io/dateSelector/)
 ## License
 
 The plugin is under MIT License
+
+
+## TODO
+
+Build a "light version" of the plugin
+...

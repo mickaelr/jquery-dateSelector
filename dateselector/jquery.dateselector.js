@@ -135,6 +135,10 @@
             else
                 this.container.addClass('dateselector-default');
 
+            // Set containerClass option if necessary
+            if(this.settings.containerClass && this.settings.containerClass != '')
+                this.container.addClass(this.settings.containerClass);
+
             // Create select fields
             switch(this.settings.cssFramework) {
                 case 'bootstrap':
@@ -281,6 +285,16 @@
                     break;
                 default: 
                     break;
+            }
+
+            // Set selectsClass option if necessary
+            if(this.settings.selectsClass && this.settings.selectsClass != '') {
+                this.selectElements.yearSelect.addClass(this.settings.selectsClass);
+                this.selectElements.monthSelect.addClass(this.settings.selectsClass);
+                this.selectElements.daySelect.addClass(this.settings.selectsClass);
+                this.selectElements.hoursSelect.addClass(this.settings.selectsClass);
+                this.selectElements.minutesSelect.addClass(this.settings.selectsClass);
+                this.selectElements.secondsSelect.addClass(this.settings.selectsClass);
             }
             
             // Set default date
@@ -702,6 +716,8 @@
         container       : undefined,
         onDateChange    : function() {},
         hideSourceNode  : true,
+        containerClass  : undefined,
+        selectsClass    : undefined,
         // Following settings aren't implemented yet
         lang            : 'fr'
     };
