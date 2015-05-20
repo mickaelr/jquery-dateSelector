@@ -8,6 +8,10 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="foundation/css/foundation.min.css">
+    <link rel="stylesheet" type="text/css" href="prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="dateselector/dateselector.css">
   </head>
   <body>
     <section class="page-header">
@@ -28,34 +32,289 @@ For example when you want to get a user's birthday, online selects or dropdowns 
 <p>The aim of this plugin is to easily build that kind of form fields for date input.</p>
 
 <h2>
-<a id="code-example" class="anchor" href="#code-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code Example</h2>
-
-<p><strong>HTML</strong></p>
-
-<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">head</span>&gt;
-        &lt;<span class="pl-ent">link</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>path/to/plugin/dateselector.css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span>&gt;
-    &lt;/<span class="pl-ent">head</span>&gt;
-    &lt;<span class="pl-ent">body</span>&gt;
-        &lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>element<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
-<span class="pl-s1">        &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>path/to/plugin/dateselector.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-    &lt;/<span class="pl-ent">body</span>&gt;</pre></div>
-
-<p><strong>JAVASCRIPT</strong></p>
-
-<div class="highlight highlight-javascript"><pre>    $(<span class="pl-c1">document</span>).ready(<span class="pl-k">function</span>() {
-        $(<span class="pl-s"><span class="pl-pds">'</span>#element<span class="pl-pds">'</span></span>).dateSelector();
-    });</pre></div>
-
-<h2>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
-
-<p>It's a jquery-based plugin, so the only thing you have to import in your project are a jQuery version and dateselector.js (and dateselector.css if you want to use the plugin style).
-Bootstrap &amp; Foundation aren't required at all, they're in the repo only for demo purpose.</p>
-
-<h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>The plugin will be under MIT License</p>
+
+<!-- START -->
+<h2>Quickstart</h2>
+<p>
+  For the moment, the plugin has dependencies with jQuery and Moment. You can include it like following. 
+  The css file isn't required if you don't want to use the plugin style.
+  Bootstrap &amp; Foundation aren't required at all, they're in the repo only for demo purpose.
+</p>
+        <pre><code class="language-markup">
+&lt;link rel="stylesheet" type="text/css" href="dateselector/dateselector.css">
+&lt;script type="text/javascript" src="jquery/jquery.min.js">&lt;/script>
+&lt;script type="text/javascript" src="moment/moment-with-locales.min.js">&lt;/script>
+&lt;script type="text/javascript" src="dateselector/jquery.dateselector.min.js">&lt;/script>
+</code></pre>
+
+        <h2>Options</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>container</td>
+                    <td>string</td>
+                    <td>undefined</td>
+                    <td>The javascript query selector of a DOM element (for ex.: '#myContainer')</td>
+                </tr>
+                <tr>
+                    <td>cssFramework</td>
+                    <td>string</td>
+                    <td>undefined</td>
+                    <td>The framework to use for selector's building</td>
+                </tr>
+                <tr>
+                    <td>dateFormat</td>
+                    <td>string</td>
+                    <td>'DD/MM/YYYY HH:mm:ss'</td>
+                    <td>The momentjs date format for display & getDateString method (see <a href="http://momentjs.com/docs/#/displaying/format/">http://momentjs.com/docs/#/displaying/format/</a>)</td>
+                </tr>
+                <tr>
+                    <td>defaultValue</td>
+                    <td>date</td>
+                    <td>current date</td>
+                    <td>The default selector value</td>
+                </tr>
+                <tr>
+                    <td>hideSourceNode</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>To hide/show the selector's source element (usually an input)</td>
+                </tr>
+                <tr>
+                    <td>maxYear</td>
+                    <td>number</td>
+                    <td>current year</td>
+                    <td>The max year of the selector</td>
+                </tr>
+                <tr>
+                    <td>minYear</td>
+                    <td>number</td>
+                    <td>1970</td>
+                    <td>The min year of the selector</td>
+                </tr>
+                <tr>
+                    <td>onDateChange</td>
+                    <td>function</td>
+                    <td>empty function</td>
+                    <td>The function to call on date change</td>
+                </tr>
+                <tr>
+                    <td>showDate</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                    <td>To hide/show the date part of the selector</td>
+                </tr>
+                <tr>
+                    <td>showTime</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>To hide/show the time part of the selector</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Methods</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>getDate</td>
+                    <td>Return the selector value as a date object</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>setDate</td>
+                    <td>Set the selector value with a date object</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>getDateString</td>
+                    <td>Return the selector value as a string</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>setDateString</td>
+                    <td>Set the selector value with a string</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>getDateStringWithFormat</td>
+                    <td>Return the selector value as a string, following the given format</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>setDateStringWithFormat</td>
+                    <td>Set the selector value with a string, following the given format</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Events</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>'buildingSelector.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'selectorBuilt.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'initializingSelector.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'selectorInitialized.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'settingDate.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'dateSet.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'gettingDate.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'dateGot.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'updatingSelector.dateselector'</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>'selectorUpdated.dateselector'</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Examples</h2>
+
+        <h3>Default</h3>
+        <pre><code class="language-markup">&lt;input class="dateselector1" type="text"></code></pre>
+        <pre><code class="language-javascript">$('.dateselector1').dateSelector();</code></pre>
+        <input class="dateselector1" type="text">
+
+        <h3>Custom container</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector2" type="text">
+&lt;div>
+    This is a custom container
+    &lt;div id="custom-container">&lt;/div>
+&lt;/div></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector2').dateSelector({
+    container: '#custom-container'
+});</code></pre>
+        <input class="dateselector2" type="text">
+        <div class="panel">
+            This is a custom container
+            <div id="custom-container"></div>
+        </div>
+        
+        <h3>With a callback function</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector3" type="text"></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector3').dateSelector({
+    onDateChange: function() {
+        // Your code here...
+        alert('date changed!');
+    }
+});</code></pre>
+        <input class="dateselector3" type="text">
+
+        <h3>Without hiding the source element</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector4" type="text"></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector4').dateSelector({
+    hideSourceNode: false
+});</code></pre>
+        <input class="dateselector4" type="text">
+
+        <h3>With time and custom hours / minutes / seconds steps</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector5" type="text"></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector5').dateSelector({
+    showTime: true,
+    hoursStep: 2,
+    minutesStep: 15,
+    secondsStep: 30
+});</code></pre>
+        <input class="dateselector5" type="text">
+
+        <h3>Bootstrap</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector-bs" type="text"></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector-bs').dateSelector({
+    cssFramework: 'bootstrap'
+});</code></pre>
+        <input class="dateselector-bs" type="text">
+
+        <h3>Foundation</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector-fdt" type="text"></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector-fdt').dateSelector({
+    cssFramework: 'foundation'
+});</code></pre>
+        <input class="dateselector-fdt" type="text">
+
+        <h3>Get the selector's date</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector6" type="text"></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector6').dateSelector({
+    onDateChange: function() {
+        alert($('.dateselector6').dateSelector('getDate'));
+    }
+});</code></pre>
+        <input class="dateselector6" type="text">
+
+        <h3>Set the selector's date</h3>
+        <pre><code class="language-markup">
+&lt;input class="dateselector7" type="text"></code></pre>
+        <pre><code class="language-javascript">
+$('.dateselector7').dateSelector().dateSelector('setDate', new Date(2000, 2, 12));</code></pre>
+        <input class="dateselector7" type="text">
+      <!-- END -->
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/mickaelr/dateSelector">Dateselector</a> is maintained by <a href="https://github.com/mickaelr">mickaelr</a>.</span>
@@ -65,6 +324,14 @@ Bootstrap &amp; Foundation aren't required at all, they're in the repo only for 
 
     </section>
 
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="foundation/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="foundation/js/foundation.min.js"></script>
+    <script type="text/javascript" src="moment/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="prism/prism.js"></script>
+    <script type="text/javascript" src="dateselector/jquery.dateselector.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
   
   </body>
 </html>

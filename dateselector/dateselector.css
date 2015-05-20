@@ -1,0 +1,48 @@
+/* ------------------- *\
+   FOR CLASSIC VERSION
+\* ------------------- */
+.dateselector-default select {
+    height: 36px;
+    padding: 6px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-shadow: none;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+/* Following width values to override if you want to change font size, select width... */
+.dateselector-default select:not(:last-child) { margin-right: 3px; }
+.dateselector-default .dateselector-year,
+.dateselector-default .dateselector-day,
+.dateselector-default .dateselector-hours,
+.dateselector-default .dateselector-minutes,
+.dateselector-default .dateselector-seconds { width: 80px; }
+.dateselector-default .dateselector-month { width: 120px; }
+
+/* --------------------- *\
+   FOR BOOTSTRAP VERSION
+\* --------------------- */
+.dateselector-bootstrap .dropdown { display: inline-block; }
+.dateselector-bootstrap .dropdown:not(:last-child) { margin-right: 3px; }
+.dateselector-bootstrap .dropdown .caret { margin-left: 5px; }
+
+/* ---------------------- *\
+   FOR FOUNDATION VERSION
+\* ---------------------- */
+.dateselector-foundation .dateselector-year,
+.dateselector-foundation .dateselector-month,
+.dateselector-foundation .dateselector-day,
+.dateselector-foundation .dateselector-hours,
+.dateselector-foundation .dateselector-minutes,
+.dateselector-foundation .dateselector-seconds { 
+  display: inline-block; 
+  margin-bottom: 0;
+}
+
+/* --------------- *\
+   FOR ALL VERSION
+\* --------------- */
+.dateselector-container {
+  margin-bottom: 15px;
+}
