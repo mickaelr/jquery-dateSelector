@@ -1,11 +1,7 @@
 /* ------------------- *\
    FOR CLASSIC VERSION
 \* ------------------- */
-input.dateselector, /* fix not-hidden input when bootstrap.css */
-.dateselector {
-    display: none;
-}
-.dateselector-container select {
+.dateselector-default select {
     height: 36px;
     padding: 6px 10px;
     background-color: #fff;
@@ -13,29 +9,40 @@ input.dateselector, /* fix not-hidden input when bootstrap.css */
     border-radius: 3px;
     box-shadow: none;
     box-sizing: border-box;
+    margin-bottom: 0;
 }
 /* Following width values to override if you want to change font size, select width... */
-.dateselector-container select:not(:last-child) { margin-right: 3px; }
-.dateselector-container .dateselector-year,
-.dateselector-container .dateselector-day,
-.dateselector-container .dateselector-hours,
-.dateselector-container .dateselector-minutes,
-.dateselector-container .dateselector-seconds { width: 70px; }
-.dateselector-container .dateselector-month { width: 110px; }
+.dateselector-default select:not(:last-child) { margin-right: 3px; }
+.dateselector-default .dateselector-year,
+.dateselector-default .dateselector-day,
+.dateselector-default .dateselector-hours,
+.dateselector-default .dateselector-minutes,
+.dateselector-default .dateselector-seconds { width: 80px; }
+.dateselector-default .dateselector-month { width: 120px; }
 
 /* --------------------- *\
    FOR BOOTSTRAP VERSION
 \* --------------------- */
-.dateselector-container .dropdown { display: inline-block; }
-.dateselector-container .dropdown:not(:last-child) { margin-right: 3px; }
-.dateselector-container .dropdown .caret { margin-left: 5px; }
+.dateselector-bootstrap .dropdown { display: inline-block; }
+.dateselector-bootstrap .dropdown:not(:last-child) { margin-right: 3px; }
+.dateselector-bootstrap .dropdown .caret { margin-left: 5px; }
 
 /* ---------------------- *\
    FOR FOUNDATION VERSION
 \* ---------------------- */
-.dateselector-container .dateselector-year,
-.dateselector-container .dateselector-month,
-.dateselector-container .dateselector-day,
-.dateselector-container .dateselector-hours,
-.dateselector-container .dateselector-minutes,
-.dateselector-container .dateselector-seconds { display: inline-block; }
+.dateselector-foundation .dateselector-year,
+.dateselector-foundation .dateselector-month,
+.dateselector-foundation .dateselector-day,
+.dateselector-foundation .dateselector-hours,
+.dateselector-foundation .dateselector-minutes,
+.dateselector-foundation .dateselector-seconds { 
+  display: inline-block; 
+  margin-bottom: 0;
+}
+
+/* --------------- *\
+   FOR ALL VERSION
+\* --------------- */
+.dateselector-container {
+  margin-bottom: 15px;
+}

@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "dateselector.js"
- *Version:    0.0.1 - 2015
+ *Version:    0.0.2 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -16,6 +16,11 @@
      * @param {Object} options Options passed to the constructor
      */
     function DateSelector(element, options) {
+        $.event.trigger({
+            type: "buildingSelector.dateselector",
+            message: "start dateSelector constructor",
+            time: new Date()
+        });
 
         // Store a reference to the source element
         this.el = element;
@@ -40,6 +45,14 @@
         this.settings.minSeconds = 0, 
         this.settings.maxSeconds = 59;
 
+        // Validate hoursStep, minutesStep and secondsStep values
+        if(!this.settings.hoursStep || 24 % this.settings.hoursStep != 0)
+            this.settings.hoursStep = $.fn[pluginName].defaults.hoursStep;
+        if(!this.settings.minutesStep || 60 % this.settings.minutesStep != 0)
+            this.settings.minutesStep = $.fn[pluginName].defaults.minutesStep;
+        if(!this.settings.secondsStep || 60 % this.settings.secondsStep != 0)
+            this.settings.secondsStep = $.fn[pluginName].defaults.secondsStep;
+
         // Set the DateSelector value (javascript Date)
         if(!(this.settings.defaultValue instanceof Date))
             this.settings.defaultValue = new Date();
@@ -50,6 +63,12 @@
             
         // Initialize the plugin instance
         this.init();
+
+        $.event.trigger({
+            type: "selectorBuilt.dateselector",
+            message: "end dateSelector constructor",
+            time: new Date()
+        });
     }
     
     /**
@@ -74,6 +93,12 @@
          *         
          */
         init: function() {
+            $.event.trigger({
+                type: "initializingSelector.dateselector",
+                message: "start dateSelector initialization",
+                time: new Date()
+            });
+
             // Declare names values
             var monthNames = [
                 "Janvier",
@@ -90,17 +115,25 @@
                 "Décembre"
             ];
             
+            // Hide element if necessary
+            if(this.settings.hideSourceNode)
+                this.$el.css('display', 'none');
+
             // Set main container
             if(this.settings.container !== undefined) {
                 var container = $(this.settings.container);
-                if(container && container.length() > 0) {
-                    this.container = container[0];
-                    this.$el.parent().append(this.container);
-                }
+                if(container && container.length > 0)
+                    this.container = $(container[0]);
             }
-            if(this.container === undefined)
+            if(this.container === undefined) {
                 this.container = $('<div>');
+                this.$el.after(this.container);
+            }
             this.container.addClass('dateselector-container');
+            if(this.settings.cssFramework)
+                this.container.addClass('dateselector-' + this.settings.cssFramework);
+            else
+                this.container.addClass('dateselector-default');
 
             // Create select fields
             switch(this.settings.cssFramework) {
@@ -146,17 +179,26 @@
                         var dayOption = $('<li value="' + d + '"><a href="#">' + d + '</a></li>');
                         this.selectElements.daySelect.append(dayOption);
                     }
-                    for(var h = this.settings.minHours; h <= this.settings.maxHours; h++) {
-                        var hoursOption = $('<li value="' + h + '"><a href="#">' + h + '</a></li>');
-                        this.selectElements.hoursSelect.append(hoursOption);
+                    for(var h = 0; h < 24 / this.settings.hoursStep; h++) {
+                        var hour = h * this.settings.hoursStep;
+                        if(h >= this.settings.minHours && h <= this.settings.maxHours) {
+                            var hoursOption = $('<li value="' + hour + '"><a href="#">' + hour + '</a></li>');
+                            this.selectElements.hoursSelect.append(hoursOption);
+                        }
                     }
-                    for(var m = this.settings.minMinutes; m <= this.settings.maxMinutes; m++) {
-                        var minutesOption = $('<li value="' + m + '"><a href="#">' + m + '</a></li>');
-                        this.selectElements.minutesSelect.append(minutesOption);
+                    for(var m = 0; m < 60 / this.settings.minutesStep; m++) {
+                        var minute = m * this.settings.minutesStep;
+                        if(m >= this.settings.minMinutes && m <= this.settings.maxMinutes) {
+                            var minutesOption = $('<li value="' + minute + '"><a href="#">' + minute + '</a></li>');
+                            this.selectElements.minutesSelect.append(minutesOption);
+                        }
                     }
-                    for(var s = this.settings.minSeconds; s <= this.settings.maxSeconds; s++) {
-                        var secondsOption = $('<li value="' + s + '"><a href="#">' + s + '</a></li>');
-                        this.selectElements.secondsSelect.append(secondsOption);
+                    for(var s = 0; s < 60 / this.settings.secondsStep; s++) {
+                        var second = s * this.settings.secondsStep;
+                        if(s >= this.settings.minSeconds && s <= this.settings.maxSeconds) {
+                            var secondsOption = $('<li value="' + second + '"><a href="#">' + second + '</a></li>');
+                            this.selectElements.secondsSelect.append(secondsOption);
+                        }
                     }
                     break;
                 default: 
@@ -172,17 +214,26 @@
                         var dayOption = $('<option value="' + d + '">' + d + '</option>');
                         this.selectElements.daySelect.append(dayOption);
                     }
-                    for(var h = this.settings.minHours; h <= this.settings.maxHours; h++) {
-                        var hoursOption = $('<option value="' + h + '">' + h + '</option>');
-                        this.selectElements.hoursSelect.append(hoursOption);
+                    for(var h = 0; h < 24 / this.settings.hoursStep; h++) {
+                        var hour = h * this.settings.hoursStep;
+                        if(h >= this.settings.minHours && h <= this.settings.maxHours) {
+                            var hoursOption = $('<option value="' + hour + '">' + hour + '</option>');
+                            this.selectElements.hoursSelect.append(hoursOption);
+                        }
                     }
-                    for(var m = this.settings.minMinutes; m <= this.settings.maxMinutes; m++) {
-                        var minutesOption = $('<option value="' + m + '">' + m + '</option>');
-                        this.selectElements.minutesSelect.append(minutesOption);
+                    for(var m = 0; m < 60 / this.settings.minutesStep; m++) {
+                        var minute = m * this.settings.minutesStep;
+                        if(m >= this.settings.minMinutes && m <= this.settings.maxMinutes) {
+                            var minutesOption = $('<option value="' + minute + '">' + minute + '</option>');
+                            this.selectElements.minutesSelect.append(minutesOption);
+                        }
                     }
-                    for(var s = this.settings.minSeconds; s <= this.settings.maxSeconds; s++) {
-                        var secondsOption = $('<option value="' + s + '">' + s + '</option>');
-                        this.selectElements.secondsSelect.append(secondsOption);
+                    for(var s = 0; s < 60 / this.settings.secondsStep; s++) {
+                        var second = s * this.settings.secondsStep;
+                        if(s >= this.settings.minSeconds && s <= this.settings.maxSeconds) {
+                            var secondsOption = $('<option value="' + second + '">' + second + '</option>');
+                            this.selectElements.secondsSelect.append(secondsOption);
+                        }
                     }
                     break;
             }
@@ -325,9 +376,16 @@
                 this.container.append(this.selectElements.daySelect).append(this.selectElements.monthSelect).append(this.selectElements.yearSelect);
             if(this.settings.showTime)
                 this.container.append(this.selectElements.hoursSelect).append(this.selectElements.minutesSelect).append(this.selectElements.secondsSelect);
-            this.$el.parent().append(this.container);
+            if(this.settings.cssFramework === 'bootstrap')
+                this.container.find('.dropdown-toggle').dropdown();
             if(this.settings.cssFramework === 'foundation')
-                $(document).foundation('dropdown', 'reflow');
+                this.container.foundation('dropdown', 'reflow');
+
+            $.event.trigger({
+                type: "selectorInitialized.dateselector",
+                message: "end dateSelector initialization",
+                time: new Date()
+            });
         },
 
         /**
@@ -348,43 +406,88 @@
             this.$el.removeData();
         },
 
-        /**
-         * Write public methods within the plugin's prototype. They can 
-         * be called with:
-         *
-         * @example
-         * $('#element').jqueryPlugin('somePublicMethod','Arguments', 'Here', 1001);
-         *  
-         * @param  {[type]} foo [some parameter]
-         * @param  {[type]} bar [some other parameter]
-         * @return {[type]}
-         */
-        somePublicMethod: function() {
 
-            // This is a call to a pseudo private method
-            //this._pseudoPrivateMethod();
+        // To call a call a pseudo private method: 
+        //this._pseudoPrivateMethod();
 
-            // This is a call to a real private method. You need to use 'call' or 'apply'
-            //privateMethod.call(this);
-        },
+        // To call a real private method from those public methods, you need to use 'call' or 'apply': 
+        //privateMethod.call(this);
 
         /**
-         * Another public method which acts as a getter method. You can call as any usual
-         * public method:
+         * getDate method
          *
          * @example
-         * $('#element').jqueryPlugin('someGetterMethod');
-         *
-         * to get some interesting info from your plugin.
+         * $('#element').pluginName('getDate');
          * 
-         * @return {[type]} Return something
+         * @return {date} current selector's value
          */
         getDate: function() {
             return this.currentValue;
         },
+
+        /**
+         * setDate method
+         *
+         * @example
+         * $('#element').pluginName('setDate', dateObject);
+         * 
+         * @param  {date} date [the date to set for selector]
+         */
+        setDate: function(date) {
+            this._setDateSelectorValue(date);
+        },
         
+        /**
+         * getDateString method
+         *
+         * @example
+         * $('#element').pluginName('getDateString');
+         * 
+         * @return {string} current selector's value
+         */
         getDateString: function() {
             return moment(this.currentValue).format(this.settings.dateFormat);
+        },
+
+        /**
+         * setDateString method
+         *
+         * @example
+         * $('#element').pluginName('setDateString', dateString);
+         * 
+         * @param  {string} dateString [the date to set for selector]
+         */
+        setDateString: function(dateString) {
+            if(moment(dateString).isValid())
+                this._setDateSelectorValue(moment(dateString));
+        },
+
+        /**
+         * getDateStringWithFormat method
+         *
+         * @example
+         * $('#element').pluginName('getDateStringWithFormat', 'DD/MM/YYYY HH:mm:ss');
+         * 
+         * @param  {string} format [the format to use to parse the selector's date value]
+         * @return {string} current selector's value
+         */
+        getDateStringWithFormat: function(format) {
+            return moment(this.currentValue).format(format);
+        },
+
+        /**
+         * setDateStringWithFormat method
+         *
+         * @example
+         * $('#element').pluginName('setDateStringWithFormat', dateString, 'DD/MM/YYYY HH:mm:ss');
+         * 
+         * @param  {string} dateString [the date to set for selector]
+         * @param  {string} format [the format to use to parse the selector's date value]
+         * @return {string} current selector's value
+         */
+        setDateStringWithFormat: function(dateString, format) {
+            if(moment(dateString, format, true).isValid())
+                this._setDateSelectorValue(moment(dateString, format, true));
         },
 
         /**
@@ -425,6 +528,12 @@
         },
         // Method that returns the value of the dateSelector
         _getDateSelectorValue: function() {
+            $.event.trigger({
+                type: "gettingDate.dateselector",
+                message: "start getDateSelectorValue method",
+                time: new Date()
+            });
+
             var selector;
             switch(this.settings.cssFramework) {
                 case 'bootstrap': case 'foundation':
@@ -446,6 +555,12 @@
                 this.selectElements.daySelect.find('option[value="' + lastMonthDay + '"]').prop('selected', true);
                 dateSelectorDay = lastMonthDay;
             }
+
+            $.event.trigger({
+                type: "dateGot.dateselector",
+                message: "end getDateSelectorValue method",
+                time: new Date()
+            });
             return new Date(
                 dateSelectorYear ? dateSelectorYear : this.settings.defaultValue.getFullYear(),
                 dateSelectorMonth ? dateSelectorMonth : 0,
@@ -458,6 +573,12 @@
         },
         // Method that set the value of the dateSelector, giving a specific date
         _setDateSelectorValue: function(date) {
+            $.event.trigger({
+                type: "settingDate.dateselector",
+                message: "start setDateSelectorValue method",
+                time: new Date()
+            });
+
             switch(this.settings.cssFramework) {
                 case 'bootstrap': case 'foundation':
                     this.selectElements.yearSelect.find('li[value="' + date.getFullYear() + '"]').addClass('selected').siblings().removeClass('selected');
@@ -485,14 +606,32 @@
                     this.selectElements.secondsSelect.find('option[value="' + date.getSeconds() + '"]').prop('selected', true);
                     break;
             }
+
+            $.event.trigger({
+                type: "dateSet.dateselector",
+                message: "end setDateSelectorValue method",
+                time: new Date()
+            });
         },
         //
         _updateDateSelector: function() {
+            $.event.trigger({
+                type: "updatingSelector.dateselector",
+                message: "start updateDateSelector method",
+                time: new Date()
+            });
+
             this.currentValue = this._getDateSelectorValue();
             this._setDateSelectorValue(this.currentValue);
             this._disableNonAvailableDays();   
             this._updateSourceInputValue();
             this.settings.onDateChange.call(this);
+
+            $.event.trigger({
+                type: "selectorUpdated.dateselector",
+                message: "end updateDateSelector method",
+                time: new Date()
+            });
         }
     };
 
@@ -556,14 +695,15 @@
         showDate        : true,
         showTime        : false,
         defaultValue    : new Date(),
-        // Following settings aren't implemented yet
         hoursStep       : 1,
         minutesStep     : 1,
         secondsStep     : 1,
         cssFramework    : undefined, // could be 'bootstrap', 'foundation'
-        lang            : 'fr',
         container       : undefined,
-        onDateChange    : function() {}
+        onDateChange    : function() {},
+        hideSourceNode  : true,
+        // Following settings aren't implemented yet
+        lang            : 'fr'
     };
  
 }(jQuery));
