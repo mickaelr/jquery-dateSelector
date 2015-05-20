@@ -5,7 +5,12 @@ For example when you want to get a user's birthday, online selects or dropdowns 
 
 The aim of this plugin is to easily build that kind of form fields for date input.
 
-## Code Example
+## Installation
+
+It's a jquery-based plugin, so the only thing you have to import in your project are a jQuery version and dateselector.js (and dateselector.css if you want to use the plugin style).
+Bootstrap & Foundation aren't required at all, they're in the repo only for demo purpose.
+
+## Usage
 
 **HTML**
 ```html
@@ -14,7 +19,7 @@ The aim of this plugin is to easily build that kind of form fields for date inpu
     </head>
     <body>
         <div id="element"></div>
-        <script src="path/to/plugin/dateselector.js"></script>
+        <script src="path/to/plugin/jquery.dateselector.js"></script>
     </body>
 ```
 
@@ -25,11 +30,10 @@ The aim of this plugin is to easily build that kind of form fields for date inpu
     });
 ```
 
-## Installation
+## Demo
 
-It's a jquery-based plugin, so the only thing you have to import in your project are a jQuery version and dateselector.js (and dateselector.css if you want to use the plugin style).
-Bootstrap & Foundation aren't required at all, they're in the repo only for demo purpose.
+See [demo project page](http://mickaelr.github.io/dateSelector/)
 
 ## License
 
-The plugin will be under MIT License
+The plugin is under MIT License
