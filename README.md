@@ -44,9 +44,8 @@ The plugin is under MIT License
 
 ## TODO
 
-Unit testing
-Build a "light version" of the plugin
-Plain javascript version
-Angular wrapper/version
-Try to remove momentjs dependency (or make it easier to use)
-...
+- Unit testing
+- Build a "light version" of the plugin
+- Plain javascript version
+- Angular wrapper/version
+- Try to remove momentjs dependency (or make it easier to use)
