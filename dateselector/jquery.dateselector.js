@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "dateselector.js"
- *Version:    0.0.2 - 2015
+ *Version:    0.1.0 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
