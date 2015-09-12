@@ -1,28 +1,53 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>DateSelector</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="foundation/css/foundation.min.css">
-        <link rel="stylesheet" type="text/css" href="prism/prism.css">
-        <link rel="stylesheet" type="text/css" href="dateselector/dateselector.css">
-        <link rel="stylesheet" type="text/css" href="app.css">
-        <link href='http://fonts.googleapis.com/css?family=Raleway:700,400' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-        <h1>DateSelector</h1>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Dateselector by mickaelr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="foundation/css/foundation.min.css">
+    <link rel="stylesheet" type="text/css" href="prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="dateselector/dateselector.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Dateselector</h1>
+      <h2 class="project-tagline">jQuery-based date select field. More ergonomic than classic datepickers for past dates like birthdays...</h2>
+      <a href="https://github.com/mickaelr/jquery-dateSelector" class="btn">View on GitHub</a>
+      <a href="https://github.com/mickaelr/jquery-dateSelector/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mickaelr/jquery-dateSelector/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <h2>Quickstart</h2>
-        For now, the plugin has dependencies with jQuery and Moment. You can include it like following.
-        The css file isn't required if you don't want to use the plugin style. 
-        Bootstrap & Foundation aren't required at all, they're in the repo only for demo purpose.
+    <section class="main-content">
+      <h2>
+<a id="dateselector" class="anchor" href="#dateselector" aria-hidden="true"><span class="octicon octicon-link"></span></a>DateSelector</h2>
+
+<p>Datepickers are great, that's right. But in some cases it's not intuitive at all.
+For example when you want to get a user's birthday, online selects or dropdowns are a lot much better.</p>
+
+<p>The aim of this plugin is to easily build that kind of form fields for date input.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>The plugin is under MIT License</p>
+
+<!-- START -->
+<h2>Quickstart</h2>
+<p>
+  For the moment, the plugin has dependencies with jQuery and Moment. You can include it like following. 
+  The css file isn't required if you don't want to use the plugin style.
+  Bootstrap &amp; Foundation aren't required at all, they're in the repo only for demo purpose.
+</p>
         <pre><code class="language-markup">
 &lt;link rel="stylesheet" type="text/css" href="dateselector/dateselector.css">
 &lt;script type="text/javascript" src="jquery/jquery.min.js">&lt;/script>
 &lt;script type="text/javascript" src="moment/moment-with-locales.min.js">&lt;/script>
-&lt;script type="text/javascript" src="dateselector/jquery.dateselector.js">&lt;/script>
+&lt;script type="text/javascript" src="dateselector/jquery.dateselector.min.js">&lt;/script>
 </code></pre>
 
         <h2>Options</h2>
@@ -301,14 +326,24 @@ $('.dateselector6').dateSelector({
         <pre><code class="language-javascript">
 $('.dateselector7').dateSelector().dateSelector('setDate', new Date(2000, 2, 12));</code></pre>
         <input class="dateselector7" type="text">
-        
-        <script type="text/javascript" src="jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="foundation/js/vendor/modernizr.js"></script>
-        <script type="text/javascript" src="foundation/js/foundation.min.js"></script>
-        <script type="text/javascript" src="moment/moment-with-locales.min.js"></script>
-        <script type="text/javascript" src="prism/prism.js"></script>
-        <script type="text/javascript" src="dateselector/jquery.dateselector.js"></script>
-        <script type="text/javascript" src="app.js"></script>
-    </body>
+      <!-- END -->
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mickaelr/jquery-dateSelector">Dateselector</a> is maintained by <a href="https://github.com/mickaelr">mickaelr</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="foundation/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="foundation/js/foundation.min.js"></script>
+    <script type="text/javascript" src="moment/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="prism/prism.js"></script>
+    <script type="text/javascript" src="dateselector/jquery.dateselector.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  
+  </body>
 </html>
