@@ -35,7 +35,7 @@ Bootstrap & Foundation aren't required at all, they're in the repo only for demo
 
 ## Demo
 
-See [demo project page](http://mickaelr.github.io/dateSelector/)
+See [demo project page](http://mickaelr.github.io/jquery-dateSelector/)
 
 ## License
 
