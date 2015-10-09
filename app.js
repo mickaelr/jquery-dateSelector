@@ -70,4 +70,14 @@ $(document).ready(function() {
     });
 
   $('.dateselector7').dateSelector().dateSelector('setDate', new Date(2000, 2, 12));
+
+  $('.dateselector8').dateSelector({
+    lang: 'es'
+  });
+  $('.dateselector9').dateSelector({
+    lang: 'de'
+  });
+  $('.dateselector10').dateSelector({
+    lang: 'fr'
+  });
 });

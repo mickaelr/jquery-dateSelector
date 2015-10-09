@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
  *JAVASCRIPT "dateselector.js"
- *Version:    0.1.0 - 2015
+ *Version:    0.1.1 - 2015
  *author:     Mickaël Roy
  *website:    http://www.mickaelroy.com
  *Licensed MIT 
@@ -99,21 +99,10 @@
                 time: new Date()
             });
 
+            if(this.settings.lang)
+                moment.locale(this.settings.lang);
             // Declare names values
-            var monthNames = [
-                "Janvier",
-                "Février",
-                "Mars",
-                "Avril",
-                "Mai",
-                "Juin",
-                "Juillet",
-                "Août",
-                "Septembre",
-                "Octobre",
-                "Novembre",
-                "Décembre"
-            ];
+            var monthNames = moment.months();
             
             // Hide element if necessary
             if(this.settings.hideSourceNode)
@@ -718,8 +707,7 @@
         hideSourceNode  : true,
         containerClass  : undefined,
         selectsClass    : undefined,
-        // Following settings aren't implemented yet
-        lang            : 'fr'
+        lang            : window.navigator.userLanguage || window.navigator.language
     };
  
 }(jQuery));
